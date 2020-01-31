@@ -4,7 +4,7 @@ class GameClient {
       .replace("http", "ws")
       .replace("board/player/", "ws?user=")
       .replace("?code=", "&code=");
-    // this.board = new Board();
+    this.board = new Board();
   }
 
   run(callback) {
@@ -13,12 +13,17 @@ class GameClient {
     this.socket.onerror = this.onError;
     this.socket.onclose = this.onClose;
     this.socket.onmessage = event => {
-      //const board = new Board(event.data);
+      this.board.update(event.data)
+      this.onUpdate(event.data)
       //const action = callback(board);
       this.send("RIGHT")
 
       console.log(event);
     };
+  }
+
+  onUpdate(data) {
+    document.getElementById('text').value = this.board.toString()
   }
 
   get size() {
