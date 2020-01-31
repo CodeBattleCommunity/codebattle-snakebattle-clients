@@ -30,7 +30,7 @@
     <ClCompile Include="BoardPoint.cpp" />
     <ClCompile Include="easywsclient\easywsclient.cpp" />
     <ClCompile Include="GameBoard.cpp" />
-    <ClCompile Include="GameClientLodeRunner.cpp" />
+    <ClCompile Include="GameClientSnake.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8F09F71F-E153-4C37-B12E-692A4CA8FE7A}</ProjectGuid>

@@ -36,49 +36,42 @@ public:
 	~GameClientSnake();
 
 	void Run(std::function<void()> _message_handler);
-	/*
-	void LoderunnerAction(LoderunnerAction action = LoderunnerAction::DO_NOTHING) {
+	
+	void SnakeAction(SnakeAction action = SnakeAction::STOP) {
 		switch (action)
 		{
-		case LoderunnerAction::DRILL_LEFT:
+		case SnakeAction::DRILL_LEFT:
 			send(std::string("ACT,LEFT"));
 			break;
-		case LoderunnerAction::DRILL_RIGHT:
+		case SnakeAction::DRILL_RIGHT:
 			send(std::string("ACT,RIGHT"));
 			break;
-		case LoderunnerAction::GO_DOWN:
+		case SnakeAction::GO_DOWN:
 			send(std::string("DOWN"));
 			break;
-		case LoderunnerAction::GO_UP:
+		case SnakeAction::GO_UP:
 			send(std::string("UP"));
 			break;
-		case LoderunnerAction::GO_LEFT:
+		case SnakeAction::GO_LEFT:
 			send(std::string("LEFT"));
 			break;
-		case LoderunnerAction::GO_RIGHT:
+		case SnakeAction::GO_RIGHT:
 			send(std::string("RIGHT"));
 			break;
-		case LoderunnerAction::SUICIDE:
+		case SnakeAction::SUICIDE:
 			send(std::string("ACT(0)"));
 			break;
-		case LoderunnerAction::DRILL:
+		case SnakeAction::DRILL:
 			send(std::string("ACT"));
 			break;
-		case LoderunnerAction::DO_NOTHING:
+		case SnakeAction::STOP:
 			break;
 		default:
 			send(std::string("STOP"));
 			break;
 		}
 	}
-	*/
-	void SnakeAction(SnakeAction action = SnakeAction::DO_NOTHING) {
-		switch (switch_on)
-		{
-		default:
-			break;
-		}
-	}
+
 	GameBoard* get_GameBoard() { return board; }
 private:
 	void send(std::string msg)

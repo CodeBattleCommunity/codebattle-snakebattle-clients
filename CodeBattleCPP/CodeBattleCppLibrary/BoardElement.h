@@ -21,11 +21,13 @@ enum class BoardElement : uint16_t
 	HEAD_EVIL = '♥',
 	HEAD_FLY = '♠',
 	HEAD_SLEEP = '&',
+
 	TAIL_END_DOWN = '╙',
 	TAIL_END_LEFT = '╘',
 	TAIL_END_UP = '╓',
 	TAIL_END_RIGHT = '╕',
 	TAIL_INACTIVE = '~',
+
 	BODY_HORIZONTAL = '═',
 	BODY_VERTICAL = '║',
 	BODY_LEFT_DOWN = '╗',
@@ -41,11 +43,13 @@ enum class BoardElement : uint16_t
 	ENEMY_HEAD_EVIL = '♣',
 	ENEMY_HEAD_FLY = '♦',
 	ENEMY_HEAD_SLEEP = 'ø',
+
 	ENEMY_TAIL_END_DOWN = '¤',
 	ENEMY_TAIL_END_LEFT = '×',
 	ENEMY_TAIL_END_UP = 'æ',
 	ENEMY_TAIL_END_RIGHT = 'ö',
 	ENEMY_TAIL_INACTIVE = '*',
+
 	ENEMY_BODY_HORIZONTAL = '—',
 	ENEMY_BODY_VERTICAL = '|',
 	ENEMY_BODY_LEFT_DOWN = '┐',

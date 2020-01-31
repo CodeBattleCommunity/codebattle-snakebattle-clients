@@ -78,22 +78,6 @@ void GameClientSnake::update_func(std::function<void()> _message_handler)
 					map[j][i] = (BoardElement)wmessage[chr];
 					chr++;
 					
-					if (map[j][i] == BoardElement::HERO_DIE ||
-						map[j][i] == BoardElement::HERO_DRILL_LEFT ||
-						map[j][i] == BoardElement::HERO_DRILL_RIGHT ||
-						map[j][i] == BoardElement::HERO_LADDER ||
-						map[j][i] == BoardElement::HERO_LEFT ||
-						map[j][i] == BoardElement::HERO_RIGHT ||
-						map[j][i] == BoardElement::HERO_FALL_LEFT ||
-						map[j][i] == BoardElement::HERO_FALL_RIGHT ||
-						map[j][i] == BoardElement::HERO_PIPE_LEFT ||
-						map[j][i] == BoardElement::HERO_PIPE_RIGHT
-						)
-					{
-						player_x = i;
-						player_y = j;
-					}
-					
 				}
 			}
 			board = new GameBoard(map, map_size);

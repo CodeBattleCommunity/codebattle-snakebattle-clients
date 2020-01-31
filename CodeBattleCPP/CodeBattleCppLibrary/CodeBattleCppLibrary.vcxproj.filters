@@ -38,13 +38,13 @@
     <ClCompile Include="easywsclient\easywsclient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameClientLodeRunner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BoardPoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClientSnake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
