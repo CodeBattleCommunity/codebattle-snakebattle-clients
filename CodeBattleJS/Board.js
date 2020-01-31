@@ -5,15 +5,15 @@ class Board {
 
   parse(raw) {
     const board = raw.replace("board=", "");
-    return board
+    return board;
   }
 
   update(raw) {
-    this._board = this.parse(raw)
+    this._board = this.parse(raw);
   }
 
   get size() {
-    return Math.sqrt(this._board.length)
+    return Math.sqrt(this._board.length);
   }
 
   isAt(x, y, element) {
@@ -152,7 +152,6 @@ class Board {
     return count;
   }
 
-
   get getPlayerTank() {
     var result = [];
     result = result.concat(this.findAll(Element.TANK_UP));
@@ -245,8 +244,23 @@ class Board {
   }
 
   toString() {
-    const lineRegExp = new RegExp('(.{30})', 'g')
+    const lineRegExp = new RegExp(`(.{${this.size}})`, "g");
 
-    return this._board.replace(lineRegExp, '\n$1')
+    return this._board.replace(lineRegExp, "\n$1");
   }
+
+  findAllElements = elementType => {
+    return this._board.split('').reduce((elements, element, index) => {
+      if (element === elementType) {
+        const point = this.getPointByShift(index);
+        elements.push(point);
+      }
+
+      return elements;
+    }, []);
+  };
+
+  getPointByShift = shift => {
+    return new Point(shift % this.size, Math.floor(shift / this.size));
+  };
 }
