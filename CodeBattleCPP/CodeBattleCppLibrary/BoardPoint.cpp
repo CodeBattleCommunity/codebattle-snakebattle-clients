@@ -44,7 +44,10 @@ int BoardPoint::getY() {
 bool BoardPoint::isOutOfBoard(int size) {
 	return x >= size || y >= size || x < 0 || y < 0;
 }
-
 void BoardPoint::print() {
 	std::cout << "[" << x << "," << y << "]" << "\n";
 }
+
+bool operator==(const BoardPoint& leftPoint, const BoardPoint& rightPoint) {
+	return leftPoint.x == rightPoint.x && leftPoint.y == rightPoint.y;
+};

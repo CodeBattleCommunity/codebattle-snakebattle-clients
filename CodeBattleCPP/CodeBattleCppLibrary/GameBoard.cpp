@@ -46,8 +46,10 @@ BoardPoint GameBoard::getMyHead() {
 std::list<BoardPoint> GameBoard::getWalls() {
 	return findAllElements(BoardElement::WALL);
 }
-bool GameBoard::isBarrierAt() {
+bool GameBoard::isBarrierAt(BoardPoint point) {
 	std::list<BoardPoint> result = getBarriers();
+	BoardPoint resultPoint = result.front();
+	return resultPoint == point;
 }
 std::list<BoardPoint> GameBoard::getStones() {
 	return findAllElements(BoardElement::STONE);

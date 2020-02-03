@@ -36,41 +36,28 @@ public:
 	~GameClientSnake();
 
 	void Run(std::function<void()> _message_handler);
-	
-	void SnakeAction(SnakeAction action = SnakeAction::STOP) {
-		switch (action)
-		{
-		case SnakeAction::DRILL_LEFT:
-			send(std::string("ACT,LEFT"));
-			break;
-		case SnakeAction::DRILL_RIGHT:
-			send(std::string("ACT,RIGHT"));
-			break;
-		case SnakeAction::GO_DOWN:
-			send(std::string("DOWN"));
-			break;
-		case SnakeAction::GO_UP:
-			send(std::string("UP"));
-			break;
-		case SnakeAction::GO_LEFT:
-			send(std::string("LEFT"));
-			break;
-		case SnakeAction::GO_RIGHT:
-			send(std::string("RIGHT"));
-			break;
-		case SnakeAction::SUICIDE:
-			send(std::string("ACT(0)"));
-			break;
-		case SnakeAction::DRILL:
-			send(std::string("ACT"));
-			break;
-		case SnakeAction::STOP:
-			break;
-		default:
-			send(std::string("STOP"));
-			break;
-		}
+
+	void Up(SnakeAction _action = SnakeAction::None)
+	{
+		send(std::string(_action == SnakeAction::BeforeTurn ? "ACT," : "") + "UP" + std::string(_action == SnakeAction::AfterTurn ? ",ACT" : ""));
 	}
+	void Down(SnakeAction _action = SnakeAction::None)
+	{
+		send(std::string(_action == SnakeAction::BeforeTurn ? "ACT," : "") + "DOWN" + std::string(_action == SnakeAction::AfterTurn ? ",ACT" : ""));
+	}
+	void Right(SnakeAction _action = SnakeAction::None)
+	{
+		send(std::string(_action == SnakeAction::BeforeTurn ? "ACT," : "") + "RIGHT" + std::string(_action == SnakeAction::AfterTurn ? ",ACT" : ""));
+	}
+	void Left(SnakeAction _action = SnakeAction::None)
+	{
+		send(std::string(_action == SnakeAction::BeforeTurn ? "ACT," : "") + "LEFT" + std::string(_action == SnakeAction::AfterTurn ? ",ACT" : ""));
+	}
+	void Act() {
+		send("ACT");
+	}
+	void Blank() { send(""); }
+
 
 	GameBoard* get_GameBoard() { return board; }
 private:

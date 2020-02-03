@@ -14,6 +14,7 @@ public:
 	BoardPoint shiftBottom();
 	BoardPoint shiftTop(int delta);
 	BoardPoint shiftTop();
+	friend bool operator==(const BoardPoint& leftPoint, const BoardPoint& rightPoint);
 	int getX();
 	int getY();
 	bool isOutOfBoard(int size);

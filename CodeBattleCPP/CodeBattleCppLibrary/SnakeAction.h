@@ -1,5 +1,10 @@
 #pragma once
 
-enum class SnakeAction {
-	LEFT, RIGHT, UP, DOWN, STOP
+#include<cstdint>
+
+enum class SnakeAction : uint8_t
+{
+	None = 0,
+	BeforeTurn = 1,
+	AfterTurn = 2
 };

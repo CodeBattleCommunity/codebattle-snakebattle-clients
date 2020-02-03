@@ -12,10 +12,9 @@ public:
 	BoardElement getElementAt(BoardPoint point);
 	void printBoard();
 	std::list<BoardPoint> findAllElements(BoardElement element);
-	//BoardPoint findElement(BoardElement element);
 	BoardPoint getMyHead();
 	std::list<BoardPoint> getWalls();
-	bool isBarrierAt();
+	bool isBarrierAt(BoardPoint point);
 	std::list<BoardPoint> getStones();
 	std::list<BoardPoint> getApples();
 	bool amIEvil();

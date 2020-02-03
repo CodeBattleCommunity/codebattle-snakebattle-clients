@@ -1,49 +1,34 @@
 #include <iostream>
 #include <random>
 
-#include "GameClientLodeRunner.h"
-
-	/*
-		Если при сборке появилась ошибка типа 
-		The Windows SDK version 10.0.16299.0 was not found...
-		делаем следующее:
-			1)Правой кнопкой мыши по CodeBattleCpp и жмём на properties.
-			2)Вкладка Configuration Properties->General
-			3)Находим Windows SDK Version и берем доступную в выпадающем списке
-			4)Нажимаем Apply
-			5)Повторяем тоже самое с CodeBattleCppLibrary
-	*/
-
+#include "GameClientSnake.h"
 
 void main()
 {
 	srand(time(0));
-	/*
-	 После регистрации вас переведёт на страницу с картой и списком игроков.
-	 URL будет примерно такой: http://localhost:8888/codenjoy-contest/board/player/cg601yim3186cotnftue?code=8887669793631271133&gameName=loderunner
-	 Состав url:
-	 адрес сервера = localhost:8888
-	 id пользователя = cg601yim3186cotnftue
-	 код пользователя = 8887669793631271133
-	*/
 
-	GameClientLodeRunner *gcb = new GameClientLodeRunner("http://codebattle-spb-2019.francecentral.cloudapp.azure.com/codenjoy-contest/board/player/jxt3idzs6w9qc1f0tesr?code=3866554102209272582");
+	GameClientSnake *gcb = new GameClientSnake("http://localhost:8080/codenjoy-contest/board/player/82bc5roztht315o8f5yc?code=3242242588940318227&gameName=snakebattle");
 	gcb->Run([&]()
 	{
 			GameBoard* gb = gcb->get_GameBoard();
-			std::list<BoardPoint> gold = gb->getGoldPositions();
 
 			bool done = false;
-			switch (rand() % 5)
-			{
-			case 0: gcb->LoderunnerAction(LoderunnerAction::GO_UP); done = true; break;
-			case 1: gcb->LoderunnerAction(LoderunnerAction::GO_DOWN); done = true; break;
-			case 2: gcb->LoderunnerAction(LoderunnerAction::GO_LEFT); done = true; break;
-			case 3: gcb->LoderunnerAction(LoderunnerAction::GO_RIGHT); done = true; break;
-			case 4: gcb->LoderunnerAction(LoderunnerAction::DRILL); done = true; break;
+			switch (rand() % 12) {
+				case 0: gcb->Up(); done = true; break;
+				case 1: gcb->Down(); done = true; break;
+				case 2: gcb->Right(); done = true; break;
+				case 3: gcb->Left(); done = true; break;
+				case 4: gcb->Up(SnakeAction::AfterTurn); done = true; break;
+				case 5: gcb->Down(SnakeAction::AfterTurn); done = true; break;
+				case 6: gcb->Left(SnakeAction::AfterTurn); done = true; break;
+				case 7: gcb->Right(SnakeAction::AfterTurn); done = true; break;
+				case 8: gcb->Up(SnakeAction::BeforeTurn); done = true; break;
+				case 9: gcb->Down(SnakeAction::BeforeTurn); done = true; break;
+				case 10: gcb->Left(SnakeAction::BeforeTurn); done = true; break;
+				case 11: gcb->Right(SnakeAction::BeforeTurn); done = true; break;
 			}
 			if (!done) {
-				gcb->LoderunnerAction(LoderunnerAction::DO_NOTHING);
+				gcb->Blank();
 			}
 	});
 
