@@ -12,18 +12,23 @@ class Board {
     this._board = this.parse(raw);
   }
 
+  _getBoardAsArray = () => this._board.split("");
+  _getMappedBoard = () =>
+    this._board.split("").map((element, index) => {
+      return { type: element, coordinates: this.getPointByShift(index) };
+    });
+
   get size() {
     return Math.sqrt(this._board.length);
   }
 
   toString() {
     const lineRegExp = new RegExp(`(.{${this.size}})`, "g");
-
     return this._board.replace(lineRegExp, "$1\n");
   }
 
   findAllElements = elementType => {
-    return this._board.split("").reduce((elements, element, index) => {
+    return this._getBoardAsArray().reduce((elements, element, index) => {
       if (typeof elementType === "string" && element === elementType) {
         const point = this.getPointByShift(index);
         elements.push(point);
@@ -36,6 +41,14 @@ class Board {
 
       return elements;
     }, []);
+  };
+
+  findElement = elementType => {
+    const foundElements = this._getMappedBoard()
+      .filter(element => element.type === elementType)
+      .map(element => element.coordinates);
+
+    return foundElements[0];
   };
 
   getPointByShift = shift =>
