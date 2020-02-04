@@ -1,73 +1,56 @@
 class GameClient {
-  constructor(url) {
+  constructor(url, options = {}) {
     this.path = url
       .replace("http", "ws")
       .replace("board/player/", "ws?user=")
       .replace("?code=", "&code=");
     this.board = new Board();
+
+    const { onUpdate, log = console.log } = options;
+    this._log = log;
+    this._onUpdate = onUpdate;
   }
 
-  run(callback) {
+  run = callback => {
     this.socket = new WebSocket(this.path);
     this.socket.onopen = this.onOpen;
     this.socket.onerror = this.onError;
     this.socket.onclose = this.onClose;
     this.socket.onmessage = event => {
-      this.board.update(event.data)
-      this.onUpdate(event.data)
-      //const action = callback(board);
-      this.send("RIGHT")
-
-      console.log(event);
+      this.board.update(event.data);
+      this.onUpdate(event.data);
+      this.send("RIGHT");
     };
-  }
+  };
 
-  onUpdate(data) {
-    document.getElementById('text').value = this.board.toString()
-  }
+  onUpdate = data => {
+    document.getElementById("text").value = this.board.toString();
+  };
 
-  get size() {
-    return this.socket.size;
-  }
+  onOpen = () => {
+    this._log("Connection established\n");
+  };
 
-  get map() {
-    return this.socket.map;
-  }
-
-  get playerX() {
-    return this.socket.playerX;
-  }
-
-  get playerY() {
-    return this.socket.playerY;
-  }
-
-  set textArea(text) {
-    this.text = text;
-  }
-
-  onOpen() {
-    if (this.text) {
-      this.text.value += "Connection established\n";
-    }
-  }
-
-  onClose(event) {
+  onClose = event => {
     if (event.wasClean) {
-      this.text.value += "### disconnected ###\n";
-    } else {
-      this.text.value += "### accidentally disconnected ###\n";
-      this.text.value +=
-        " - Err code: " + event.code + ", Reason: " + event.reason + "\n";
+      return this._log("### disconnected ###\n");
     }
-  }
 
-  onError(error) {
-    this.text.value += "### error ###\n" + error.message + "\n";
-  }
+    this._log(
+      "### accidentally disconnected ###\n - Err code: " +
+        event.code +
+        ", Reason: " +
+        event.reason +
+        "\n"
+    );
+  };
 
-  send(msg) {
-    // this.text.value += "Sending: " + msg + "\n";
+  onError = error => {
+    this._log("### error ###\n" + error.message + "\n");
+  };
+
+  send = msg => {
+    this._log("Sending: " + msg + "\n");
     this.socket.send(msg);
-  }
+  };
 }
