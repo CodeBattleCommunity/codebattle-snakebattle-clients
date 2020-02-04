@@ -19,7 +19,8 @@ class GameClient {
     this.socket.onmessage = event => {
       this.board.update(event.data);
       this._onUpdate(this.board);
-      this.send("RIGHT");
+      const action = callback(this.board)
+      this.send(action);
     };
   };
 

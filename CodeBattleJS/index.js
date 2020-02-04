@@ -11,4 +11,6 @@ const client = new GameClient(url, {
   }
 });
 
-client.run(() => {});
+client.run(() => {
+  return new Action(DIRECTIONS.RIGHT, true)
+});
