@@ -12,5 +12,9 @@ const client = new GameClient(url, {
 });
 
 client.run(() => {
-  return new Action(DIRECTIONS.RIGHT, true)
+  const random = Math.floor(Math.random() * 4)
+  const randomDirection = Object.keys(DIRECTIONS)[random]
+  const isActing = Math.random() < 0.5
+
+  return new Action(randomDirection, isActing)
 });
