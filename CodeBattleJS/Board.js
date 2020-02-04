@@ -246,7 +246,7 @@ class Board {
   toString() {
     const lineRegExp = new RegExp(`(.{${this.size}})`, "g");
 
-    return this._board.replace(lineRegExp, "\n$1");
+    return this._board.replace(lineRegExp, "$1\n");
   }
 
   findAllElements = elementType => {

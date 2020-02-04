@@ -18,13 +18,9 @@ class GameClient {
     this.socket.onclose = this.onClose;
     this.socket.onmessage = event => {
       this.board.update(event.data);
-      this.onUpdate(event.data);
+      this._onUpdate(this.board);
       this.send("RIGHT");
     };
-  };
-
-  onUpdate = data => {
-    document.getElementById("text").value = this.board.toString();
   };
 
   onOpen = () => {
