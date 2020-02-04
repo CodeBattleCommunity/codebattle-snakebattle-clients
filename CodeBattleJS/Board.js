@@ -3,13 +3,8 @@ class Board {
     this._board = "";
   }
 
-  parse(raw) {
-    const board = raw.replace("board=", "");
-    return board;
-  }
-
   update(raw) {
-    this._board = this.parse(raw);
+    this._board = raw.replace("board=", "");
   }
 
   _getBoardAsArray = () => this._board.split("");
