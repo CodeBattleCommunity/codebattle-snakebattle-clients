@@ -11,4 +11,3 @@ class SnakeAction(Enum):
     ACT_RIGHT = 'act,right'
     ACT_UP = 'act,up'
     ACT_DOWN = 'act,down'
-    ACT_STOP = 'act,stop'
