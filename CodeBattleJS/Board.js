@@ -12,15 +12,6 @@ class Board {
       return { type: element, coordinates: this.getPointByShift(index) };
     });
 
-  get size() {
-    return Math.sqrt(this._board.length);
-  }
-
-  toString() {
-    const lineRegExp = new RegExp(`(.{${this.size}})`, "g");
-    return this._board.replace(lineRegExp, "$1\n");
-  }
-
   findAllElements = (...elementTypes) => {
     return this._getMappedBoard().reduce((points, element, index) => {
       if (elementTypes.includes(element.type)) {
@@ -36,19 +27,19 @@ class Board {
       .filter(element => element.type === elementType)
       .map(element => element.coordinates);
 
-    return foundPoints[0];
+    return foundPoints[0] || null;
   };
 
   findFirstElement = (...elementTypes) => {
-    const element = this._getMappedBoard().find((element) => {
-      return elementTypes.includes(element.type)
-    })
+    const element = this._getMappedBoard().find(element => {
+      return elementTypes.includes(element.type);
+    });
 
     if (!element) {
-      return null
+      return null;
     }
 
-    return element.coordinates
+    return element.coordinates;
   };
 
   getPointByShift = shift =>
@@ -61,6 +52,22 @@ class Board {
   getFuryPills = () => this.findAllElements(ELEMENTS.FURY_PILL);
   getStartPoints = () => this.findAllElements(ELEMENTS.START_FLOOR);
   getFlyingPills = () => this.findAllElements(ELEMENTS.FLYING_PILL);
+
+  getMyHead = () => {
+    const headElementTypes = [
+      "HEAD_DEAD",
+      "HEAD_DOWN",
+      "HEAD_UP",
+      "HEAD_LEFT",
+      "HEAD_RIGHT",
+      "HEAD_EVIL",
+      "HEAD_FLY",
+      "HEAD_SLEEP"
+    ].map(elementName => ELEMENTS[elementName]);
+
+    return this.findFirstElement(...headElementTypes)
+  };
+
   getBarriers = () => {
     const elementTypes = [
       "WALL",
@@ -79,4 +86,29 @@ class Board {
       barrierPoint.equals(point)
     );
   };
+
+  getElementAt = point => {
+    const element = this._getMappedBoard().find(element => {
+      return element.coordinates.equals(point);
+    });
+
+    if (!element) {
+      return null;
+    }
+
+    return element.type;
+  };
+
+  hasElementAt = (elementType, point) => {
+    return this.getElementAt(point) === elementType
+  }
+
+  get size() {
+    return Math.sqrt(this._board.length);
+  }
+
+  toString() {
+    const lineRegExp = new RegExp(`(.{${this.size}})`, "g");
+    return this._board.replace(lineRegExp, "$1\n");
+  }
 }
