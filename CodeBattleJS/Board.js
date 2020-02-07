@@ -7,15 +7,15 @@ class Board {
     return Math.sqrt(this._board.length);
   }
 
-  findElement = elementType => {
+  findElement(elementType) {
     const foundPoints = this._getMappedBoard()
       .filter(element => element.type === elementType)
       .map(element => element.coordinates);
 
     return foundPoints[0] || null;
-  };
+  }
 
-  findFirstElement = (...elementTypes) => {
+  findFirstElement(...elementTypes) {
     const element = this._getMappedBoard().find(element => {
       return elementTypes.includes(element.type);
     });
@@ -25,9 +25,9 @@ class Board {
     }
 
     return element.coordinates;
-  };
+  }
 
-  findAllElements = (...elementTypes) => {
+  findAllElements(...elementTypes) {
     return this._getMappedBoard().reduce((points, element, index) => {
       if (elementTypes.includes(element.type)) {
         points.push(element.coordinates);
@@ -35,9 +35,9 @@ class Board {
 
       return points;
     }, []);
-  };
+  }
 
-  getElementAt = point => {
+  getElementAt(point) {
     const element = this._getMappedBoard().find(element => {
       return element.coordinates.equals(point);
     });
@@ -47,24 +47,49 @@ class Board {
     }
 
     return element.type;
-  };
+  }
 
-  hasElementAt = (elementType, point) => {
+  hasElementAt(elementType, point) {
     return this.getElementAt(point) === elementType;
-  };
+  }
 
-  amIEvil = () => this.getMyHead() === ELEMENTS.HEAD_EVIL;
-  amIFlying = () => this.getMyHead() === ELEMENTS.HEAD_FLY;
+  amIEvil() {
+    return this.getMyHead() === ELEMENTS.HEAD_EVIL;
+  }
 
-  getWalls = () => this.findAllElements(ELEMENTS.WALL);
-  getStones = () => this.findAllElements(ELEMENTS.STONE);
-  getApples = () => this.findAllElements(ELEMENTS.APPLE);
-  getGold = () => this.findAllElements(ELEMENTS.FURY_PILL);
-  getFuryPills = () => this.findAllElements(ELEMENTS.FURY_PILL);
-  getStartPoints = () => this.findAllElements(ELEMENTS.START_FLOOR);
-  getFlyingPills = () => this.findAllElements(ELEMENTS.FLYING_PILL);
+  amIFlying() {
+    return this.getMyHead() === ELEMENTS.HEAD_FLY;
+  }
 
-  getMyHead = () => {
+  getWalls() {
+    return this.findAllElements(ELEMENTS.WALL);
+  }
+
+  getStones() {
+    return this.findAllElements(ELEMENTS.STONE);
+  }
+
+  getApples() {
+    return this.findAllElements(ELEMENTS.APPLE);
+  }
+
+  getGold() {
+    return this.findAllElements(ELEMENTS.FURY_PILL);
+  }
+
+  getFuryPills() {
+    return this.findAllElements(ELEMENTS.FURY_PILL);
+  }
+
+  getStartPoints() {
+    return this.findAllElements(ELEMENTS.START_FLOOR);
+  }
+
+  getFlyingPills() {
+    return this.findAllElements(ELEMENTS.FLYING_PILL);
+  }
+
+  getMyHead() {
     const headElementTypes = [
       "HEAD_DEAD",
       "HEAD_DOWN",
@@ -77,9 +102,9 @@ class Board {
     ].map(elementName => ELEMENTS[elementName]);
 
     return this.findFirstElement(...headElementTypes);
-  };
+  }
 
-  getBarriers = () => {
+  getBarriers() {
     const elementTypes = [
       "WALL",
       "START_FLOOR",
@@ -90,25 +115,27 @@ class Board {
     ].map(elementName => ELEMENTS[elementName]);
 
     return this.findAllElements(...elementTypes);
-  };
+  }
 
-  isBarrierAt = point => {
+  isBarrierAt(point) {
     return !!this.getBarriers().find(barrierPoint =>
       barrierPoint.equals(point)
     );
-  };
+  }
 
   update(raw) {
     this._board = raw.replace("board=", "");
   }
 
-  _getMappedBoard = () =>
-    this._board.split("").map((element, index) => {
+  _getMappedBoard() {
+    return this._board.split("").map((element, index) => {
       return { type: element, coordinates: this.getPointByShift(index) };
     });
+  }
 
-  getPointByShift = shift =>
-    new Point(shift % this.size, Math.floor(shift / this.size));
+  getPointByShift(shift) {
+    return new Point(shift % this.size, Math.floor(shift / this.size));
+  }
 
   toString() {
     const lineRegExp = new RegExp(`(.{${this.size}})`, "g");

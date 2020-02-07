@@ -1,22 +1,24 @@
+const outputElement = document.getElementById("text");
 const url =
   "http://epruizhsa0001t2:8080/codenjoy-contest/board/player/1g1z6yb04udfp18d6hms?code=2897168687142116884&gameName=snakebattle";
 
-const outputElement = document.getElementById("text");
 const client = new GameClient(url, {
   onUpdate: board => {
     outputElement.value = board.toString();
   },
+
   log: message => {
+    console.log(message);
     outputElement.value += message;
   }
 });
 
-client.run((board) => {
-  const random = Math.floor(Math.random() * 4)
-  const randomDirection = Object.keys(DIRECTIONS)[random]
-  const isActing = Math.random() < 0.5
+client.run(board => {
+  const random = Math.floor(Math.random() * 4);
+  const randomDirection = Object.keys(DIRECTIONS)[random];
+  const isActing = Math.random() < 0.5;
 
-  console.log(board.findFirstElement(ELEMENTS.HEAD_RIGHT))
+  console.log(board.findAllElements(ELEMENTS.WALL))
 
-  return new Action(randomDirection, isActing)
+  return new Action(randomDirection, isActing);
 });

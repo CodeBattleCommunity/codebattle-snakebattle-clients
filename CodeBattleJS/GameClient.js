@@ -11,24 +11,24 @@ class GameClient {
     this._onUpdate = onUpdate;
   }
 
-  run = callback => {
+  run(callback) {
     this.socket = new WebSocket(this.path);
-    this.socket.onopen = this.onOpen;
-    this.socket.onerror = this.onError;
-    this.socket.onclose = this.onClose;
+    this.socket.onopen = this.onOpen.bind(this);
+    this.socket.onerror = this.onError.bind(this);
+    this.socket.onclose = this.onClose.bind(this);
     this.socket.onmessage = event => {
       this.board.update(event.data);
       this._onUpdate(this.board);
-      const action = callback(this.board)
+      const action = callback(this.board);
       this.send(action);
     };
-  };
+  }
 
-  onOpen = () => {
+  onOpen() {
     this._log("Connection established\n");
-  };
+  }
 
-  onClose = event => {
+  onClose(event) {
     if (event.wasClean) {
       return this._log("### disconnected ###\n");
     }
@@ -40,14 +40,14 @@ class GameClient {
         event.reason +
         "\n"
     );
-  };
+  }
 
-  onError = error => {
+  onError(error) {
     this._log("### error ###\n" + error.message + "\n");
-  };
+  }
 
-  send = msg => {
+  send(msg) {
     this._log("Sending: " + msg + "\n");
     this.socket.send(msg);
-  };
+  }
 }

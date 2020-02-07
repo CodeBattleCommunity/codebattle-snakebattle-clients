@@ -4,26 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>ShakeBattle</title>
+    <title>CodeBattle 5.0: Snake Battle</title>
     <style>
       html,
       body {
         height: 100%;
         padding: 0;
       }
+
+      #text {
+        display: block;
+        width: 100%;
+        height: 100%;
+        resize: none;
+        font-family: monospace;
+        font-size: 20px;
+      }
     </style>
   </head>
-  <body style="height: 100%;">
-    <textarea
-      id="text"
-      readonly="true"
-      style="display: block; width: 100%; height: 100%; resize: none; font-family: monospace; font-size: 20px;"
-    >
-    </textarea>
-    <textarea id="debug"> </textarea>
+  <body>
+    <textarea id="text" readonly="true"></textarea>
   </body>
 </html>
-
 
 <script src="./Action.js"></script>
 <script src="./Directions.js"></script>
