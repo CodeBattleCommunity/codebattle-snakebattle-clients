@@ -21,13 +21,9 @@ class Board {
     return this._board.replace(lineRegExp, "$1\n");
   }
 
-  findAllElements = elementType => {
+  findAllElements = (...elementTypes) => {
     return this._getMappedBoard().reduce((points, element, index) => {
-      if (typeof elementType === "string" && element.type === elementType) {
-        points.push(element.coordinates);
-      }
-
-      if (elementType instanceof Array && elementType.includes(element.type)) {
+      if (elementTypes.includes(element.type)) {
         points.push(element.coordinates);
       }
 
@@ -43,13 +39,25 @@ class Board {
     return foundPoints[0];
   };
 
+  findFirstElement = (...elementTypes) => {
+    const element = this._getMappedBoard().find((element) => {
+      return elementTypes.includes(element.type)
+    })
+
+    if (!element) {
+      return null
+    }
+
+    return element.coordinates
+  };
+
   getPointByShift = shift =>
     new Point(shift % this.size, Math.floor(shift / this.size));
 
-  getGold = () => this.findAllElements(ELEMENTS.FURY_PILL);
   getWalls = () => this.findAllElements(ELEMENTS.WALL);
   getStones = () => this.findAllElements(ELEMENTS.STONE);
   getApples = () => this.findAllElements(ELEMENTS.APPLE);
+  getGold = () => this.findAllElements(ELEMENTS.FURY_PILL);
   getFuryPills = () => this.findAllElements(ELEMENTS.FURY_PILL);
   getStartPoints = () => this.findAllElements(ELEMENTS.START_FLOOR);
   getFlyingPills = () => this.findAllElements(ELEMENTS.FLYING_PILL);
@@ -63,6 +71,12 @@ class Board {
       "STONE"
     ].map(elementName => ELEMENTS[elementName]);
 
-    return this.findAllElements(elementTypes);
+    return this.findAllElements(...elementTypes);
+  };
+
+  isBarrierAt = point => {
+    return !!this.getBarriers().find(barrierPoint =>
+      barrierPoint.equals(point)
+    );
   };
 }

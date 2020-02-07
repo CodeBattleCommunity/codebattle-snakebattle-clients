@@ -16,7 +16,7 @@ client.run((board) => {
   const randomDirection = Object.keys(DIRECTIONS)[random]
   const isActing = Math.random() < 0.5
 
-  console.log(board.findElement(ELEMENTS.APPLE))
+  console.log(board.findFirstElement(ELEMENTS.HEAD_RIGHT))
 
   return new Action(randomDirection, isActing)
 });
