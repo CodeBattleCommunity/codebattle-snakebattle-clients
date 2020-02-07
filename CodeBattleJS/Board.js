@@ -7,7 +7,6 @@ class Board {
     this._board = raw.replace("board=", "");
   }
 
-  _getBoardAsArray = () => this._board.split("");
   _getMappedBoard = () =>
     this._board.split("").map((element, index) => {
       return { type: element, coordinates: this.getPointByShift(index) };
@@ -23,27 +22,25 @@ class Board {
   }
 
   findAllElements = elementType => {
-    return this._getBoardAsArray().reduce((elements, element, index) => {
-      if (typeof elementType === "string" && element === elementType) {
-        const point = this.getPointByShift(index);
-        elements.push(point);
+    return this._getMappedBoard().reduce((points, element, index) => {
+      if (typeof elementType === "string" && element.type === elementType) {
+        points.push(element.coordinates);
       }
 
-      if (elementType instanceof Array && elementType.includes(element)) {
-        const point = this.getPointByShift(index);
-        elements.push(point);
+      if (elementType instanceof Array && elementType.includes(element.type)) {
+        points.push(element.coordinates);
       }
 
-      return elements;
+      return points;
     }, []);
   };
 
   findElement = elementType => {
-    const foundElements = this._getMappedBoard()
+    const foundPoints = this._getMappedBoard()
       .filter(element => element.type === elementType)
       .map(element => element.coordinates);
 
-    return foundElements[0];
+    return foundPoints[0];
   };
 
   getPointByShift = shift =>
