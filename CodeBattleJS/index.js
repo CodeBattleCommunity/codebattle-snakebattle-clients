@@ -18,7 +18,5 @@ client.run(board => {
   const randomDirection = Object.keys(DIRECTIONS)[random];
   const isActing = Math.random() < 0.5;
 
-  console.log(board.findAllElements(ELEMENTS.WALL))
-
   return new Action(randomDirection, isActing);
 });
