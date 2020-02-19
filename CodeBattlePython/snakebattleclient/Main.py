@@ -10,8 +10,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)s:%(message)s',
 
 
 def turn(gcb: Board):
-    action_id = random.randint(0, len(SnakeAction.__members__) - 1)
-    return list(SnakeAction.__members__)[action_id]
+    return random.choice(list(SnakeAction))
 
 
 def main():

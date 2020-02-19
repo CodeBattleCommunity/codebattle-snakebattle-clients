@@ -32,8 +32,7 @@ class GameClient:
         board = Board(message.lstrip("board="))
         board.print_board()
         action = self.on_turn(board)
-        self.__send(action)
-        # .value)
+        self.__send(action.value)
 
     def __send(self, msg):
         logger.info('Sending: {}'.format(msg))
