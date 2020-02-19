@@ -11,11 +11,11 @@ repositories {
     mavenCentral()
 }
 
-mainClassName = 'ru.codebattle.client.CodeBattleJava'
+mainClassName = 'ru.codebattle.client.Main'
 
 jar {
     manifest {
-        attributes "Main-Class": "ru.codebattle.client.CodeBattleJava"
+        attributes "Main-Class": "ru.codebattle.client.Main"
     }
 
     from {

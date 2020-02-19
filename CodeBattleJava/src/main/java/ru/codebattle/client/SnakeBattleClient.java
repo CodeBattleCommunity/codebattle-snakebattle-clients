@@ -3,12 +3,11 @@ package ru.codebattle.client;
 import java.util.function.Function;
 import ru.codebattle.client.api.GameBoard;
 import ru.codebattle.client.api.SnakeAction;
-import ru.codebattle.client.api.LoderunnerBase;
+import ru.codebattle.client.api.SnakeBattleBase;
 
 import java.net.URISyntaxException;
-import java.util.Random;
 
-public class SnakeBattleClient extends LoderunnerBase {
+public class SnakeBattleClient extends SnakeBattleBase {
 
     private Function<GameBoard, SnakeAction> callback;
 

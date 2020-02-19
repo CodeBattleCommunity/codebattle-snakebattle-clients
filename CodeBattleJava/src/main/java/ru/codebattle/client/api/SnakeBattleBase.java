@@ -13,10 +13,11 @@ import java.net.URISyntaxException;
 import static java.lang.String.format;
 
 @Slf4j
-public abstract class LoderunnerBase extends WebSocketClient {
+public abstract class SnakeBattleBase
+        extends WebSocketClient {
     private final String responsePrefix = "board=";
 
-    public LoderunnerBase(String url) throws URISyntaxException {
+    public SnakeBattleBase(String url) throws URISyntaxException {
         super(new URI(url.replace("http", "ws").replace("board/player/", "ws?user=").replace("?code=", "&code=")));
     }
 
