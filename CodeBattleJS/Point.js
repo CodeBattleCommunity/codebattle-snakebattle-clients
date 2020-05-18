@@ -27,7 +27,7 @@ class Point {
   }
 
   shiftRight(delta = 1) {
-    new Point(this.x + delta, this.y);
+    return new Point(this.x + delta, this.y);
   }
 
   shiftBottom(delta = 1) {
